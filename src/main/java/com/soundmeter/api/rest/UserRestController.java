@@ -1,14 +1,16 @@
 package com.soundmeter.api.rest;
 
-import com.soundmeter.api.model.User;
+import com.soundmeter.api.exception.UserByMailNotFoundException;
+import com.soundmeter.api.model.AppUser;
 import com.soundmeter.api.service.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -27,8 +29,20 @@ public class UserRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    private List<User> getUser (){
+    private List<AppUser> getUser (){
         logger.info("Listing all USERS");
         return this.userRepository.findAll();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    private ResponseEntity<?> addUser(@RequestBody AppUser user) {
+        AppUser u1 = userRepository.save(user);
+        logger.info("User created", u1);
+        return new ResponseEntity<Object>(u1, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{mail}")
+    private Optional<AppUser> getUserByMail(@PathVariable  String mail) {
+        return this.userRepository.findByMail(mail);
     }
 }

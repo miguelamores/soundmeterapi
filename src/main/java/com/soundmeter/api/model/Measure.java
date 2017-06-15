@@ -10,11 +10,11 @@ import java.util.Date;
 public class Measure {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
     private float value;
 
@@ -27,8 +27,8 @@ public class Measure {
     public Measure() {
     }
 
-    public Measure(User user, float value, float latitude, float longitude, Date created) {
-        this.user = user;
+    public Measure(AppUser appUser, float value, float latitude, float longitude, Date created) {
+        this.user = appUser;
         this.value = value;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -43,12 +43,12 @@ public class Measure {
         this.id = id;
     }
 
-    public User getUser() {
+    public AppUser getAppUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAppUser(AppUser appUser) {
+        this.user = appUser;
     }
 
     public float getValue() {

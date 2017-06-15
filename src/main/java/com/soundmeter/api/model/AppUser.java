@@ -1,5 +1,7 @@
 package com.soundmeter.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +10,10 @@ import java.util.List;
  * Created by miguelamores on 6/12/17.
  */
 @Entity
-public class User {
+public class AppUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
 
     private String name;
@@ -21,13 +22,14 @@ public class User {
 
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Measure> measures = new ArrayList<>();
 
-    public User() {
+    public AppUser() {
     }
 
-    public User(String name, String mail, String password) {
+    public AppUser(String name, String mail, String password) {
         this.name = name;
         this.mail = mail;
         this.password = password;
