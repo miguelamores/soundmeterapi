@@ -12,6 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private long user_id;
 
     private String name;
@@ -20,7 +21,7 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user")
     private List<Measure> measures = new ArrayList<>();
 
     public User() {

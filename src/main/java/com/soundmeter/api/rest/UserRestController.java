@@ -2,11 +2,14 @@ package com.soundmeter.api.rest;
 
 import com.soundmeter.api.model.User;
 import com.soundmeter.api.service.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 /**
  * Created by miguelamores on 6/12/17.
@@ -14,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
+
+    final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     private final UserRepository userRepository;
 
@@ -23,6 +28,7 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     private List<User> getUser (){
+        logger.info("Listing all USERS");
         return this.userRepository.findAll();
     }
 }

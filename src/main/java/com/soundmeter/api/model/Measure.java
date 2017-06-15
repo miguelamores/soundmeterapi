@@ -14,7 +14,7 @@ public class Measure {
     private long id;
 
     @ManyToOne
-    private User user_id;
+    private User user;
 
     private float value;
 
@@ -28,7 +28,7 @@ public class Measure {
     }
 
     public Measure(User user, float value, float latitude, float longitude, Date created) {
-        this.user_id = user;
+        this.user = user;
         this.value = value;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -44,11 +44,11 @@ public class Measure {
     }
 
     public User getUser() {
-        return user_id;
+        return user;
     }
 
     public void setUser(User user) {
-        this.user_id = user;
+        this.user = user;
     }
 
     public float getValue() {
