@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by user on 15/06/2017.
@@ -36,8 +36,8 @@ public class MeasureRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    private Collection<Measure> getAllMeasure() {
+    private List<Measure> getAllMeasure() {
         logger.info("Getting all measures");
-        return (Collection<Measure>) this.measureRepository.findAll();
+        return (List<Measure>) this.measureRepository.findAll();
     }
 }
