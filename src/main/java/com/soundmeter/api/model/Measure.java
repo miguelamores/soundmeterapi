@@ -1,5 +1,7 @@
 package com.soundmeter.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class Measure {
     private long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private AppUser user;
 
     private float value;
