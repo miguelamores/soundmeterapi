@@ -6,11 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,5 +37,17 @@ public class MeasureRestController {
     private List<Measure> getAllMeasure() {
         logger.info("Getting all measures");
         return (List<Measure>) this.measureRepository.findAll();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/date")
+    private List<Measure> getMeasureByDate(@RequestParam Date startDate, @RequestParam Date endDate) {
+        logger.info("Listing measures by date");
+        return this.measureRepository.findByCreated(startDate, endDate);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    private ResponseEntity<?> deleteMeasure(@RequestParam long id) {
+        this.measureRepository.delete(id);
+        return new ResponseEntity<Measure>(HttpStatus.OK);
     }
 }

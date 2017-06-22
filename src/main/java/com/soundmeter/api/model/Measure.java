@@ -1,7 +1,5 @@
 package com.soundmeter.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,7 +17,7 @@ public class Measure {
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-    private float value;
+    private float val;
 
     private float latitude;
 
@@ -30,9 +28,9 @@ public class Measure {
     public Measure() {
     }
 
-    public Measure(AppUser appUser, float value, float latitude, float longitude, Date created) {
+    public Measure(AppUser appUser, float val, float latitude, float longitude, Date created) {
         this.user = appUser;
-        this.value = value;
+        this.val = val;
         this.latitude = latitude;
         this.longitude = longitude;
         this.created = created;
@@ -54,12 +52,12 @@ public class Measure {
         this.user = appUser;
     }
 
-    public float getValue() {
-        return value;
+    public float getVal() {
+        return val;
     }
 
-    public void setValue(float value) {
-        this.value = value;
+    public void setVal(float val) {
+        this.val = val;
     }
 
     public float getLatitude() {
