@@ -4,6 +4,7 @@ import com.soundmeter.api.model.Measure;
 import com.soundmeter.api.service.MeasureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,13 +41,20 @@ public class MeasureRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/date")
-    private List<Measure> getMeasureByDate(@RequestParam Date startDate, @RequestParam Date endDate) {
+    private List<Measure> getMeasureByDate(@RequestParam @DateTimeFormat(pattern = "MMddyyyy hh:mm") Date startDate,
+                                           @RequestParam @DateTimeFormat(pattern = "MMddyyyy hh:mm") Date endDate) {
         logger.info("Listing measures by date");
         return this.measureRepository.findByCreated(startDate, endDate);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     private ResponseEntity<?> deleteMeasure(@RequestParam long id) {
+        Measure measure = this.measureRepository.findOne(id);
+        if(measure == null) {
+            logger.info("Measure with id: " + id + "does not exists");
+            return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+        }
+        logger.info("Deleting measure with id: " + measure.getId());
         this.measureRepository.delete(id);
         return new ResponseEntity<Measure>(HttpStatus.OK);
     }
