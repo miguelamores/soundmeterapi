@@ -10,5 +10,5 @@ import java.util.List;
  * Created by user on 15/06/2017.
  */
 public interface MeasureRepository extends PagingAndSortingRepository<Measure,Long> {
-    List<Measure> findByCreated(Date startDate, Date endDate);
+    List<Measure> findByCreatedBetween(Date startDate, Date endDate);
 }

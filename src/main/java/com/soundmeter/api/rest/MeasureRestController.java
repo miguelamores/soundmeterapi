@@ -44,7 +44,7 @@ public class MeasureRestController {
     private List<Measure> getMeasureByDate(@RequestParam @DateTimeFormat(pattern = "MMddyyyy hh:mm") Date startDate,
                                            @RequestParam @DateTimeFormat(pattern = "MMddyyyy hh:mm") Date endDate) {
         logger.info("Listing measures by date");
-        return this.measureRepository.findByCreated(startDate, endDate);
+        return this.measureRepository.findByCreatedBetween(startDate, endDate);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
